@@ -1,0 +1,29 @@
+eureka:
+#  instance:
+#    #hostname: gomyck-auth.com
+#    #instance-id: ${spring.application.name}-@project.version@-${spring.cloud.client.ip-address}:${server.port}
+#    #是否以IP方式注册, 如果是否的话, 在通讯时会用hostname作为请求地址
+#    #prefer-ip-address: true
+#    #每间隔1s，向服务端发送一次心跳，证明服务依然”存活“
+#    lease-renewal-interval-in-seconds: 5
+#    #服务时效时间 (这个值要比心跳时间大, 如果上次心跳到下次心跳时间超过这个值, eureka注册中心将会下线改服务)
+#    #告诉服务端，如果我2s之内没有给服务端发心跳，就代表服务down掉了，将服务踢出掉
+#    lease-expiration-duration-in-seconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8080/eureka,http://127.0.0.1:8081/eureka
+server:
+  port: 8090
+spring:
+  application:
+    name: provider
+
+#feign:
+#  hystrix:
+#    enabled: true
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

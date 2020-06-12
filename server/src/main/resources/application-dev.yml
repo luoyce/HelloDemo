@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+eureka:
+  instance:
+    hostname: serversave
+  server:
+      #服务清理周期(毫秒)
+      eviction-interval-timer-in-ms: 5000
+      #是否开启保护模式, 如果开启, 当掉线率达到85% ? (具体是多少忘了), eureka将停止从服务列表中下线服务信息
+      enable-self-preservation: false
+  client:
+    #是否把当前应用注册到eureka
+    registerWithEureka: false
+    #是否获取注册列表
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://servermaster:8080/eureka
+
+spring:
+  application:
+    name: eurka-server

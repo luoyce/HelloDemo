@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: servermaster
+  server:
+      #服务清理周期(毫秒)
+      eviction-interval-timer-in-ms: 5000
+      #是否开启保护模式, 如果开启, 当掉线率达到85% ? (具体是多少忘了), eureka将停止从服务列表中下线服务信息
+      #一旦进入保护模式，Eureka Server将会尝试保护其服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）
+      enable-self-preservation: false
+  client:
+    #是否把当前应用注册到eureka
+    registerWithEureka: false
+    #是否获取注册列表
+    fetchRegistry: false
+    serviceUrl:
+      #eureka服务地址, 可以有多个, 当有多个时, 会形成集群服务, eureka共享注册表
+      defaultZone: http://serversave:8081/eureka
+
+spring:
+  application:
+    name: eurka-server
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: path_route #路由的ID
+#          uri: http://127.0.0.1:8090/user/getUser/{id} #匹配后路由地址
+#          predicates: # 断言，路径相匹配的进行路由
+#            - Path=/user/getUser/{id}

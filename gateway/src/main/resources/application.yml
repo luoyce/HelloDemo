@@ -1,0 +1,51 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /gateway
+service-url:
+  user-service: http://localhost:8090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+#    org.springframework.http.server.reactive: trace
+#    org.springframework.web.reactive: trace
+#    org.springframework.boot.autoconfigure.web: trace
+#    reactor.netty: trace
+#    redisratelimiter: trace
+
+spring:
+  cloud:
+    gateway:
+      httpserver:
+        wiretap: true
+      httpclient:
+        wiretap: true
+      routes:
+#        - id: after_route
+#          uri: http://localhost:8090
+#          predicates:
+#            - After=2020-06-08T17:42:47.789-07:00[Asia/Shanghai]
+        - id: path_route
+          uri: http://localhost:8090
+          predicates:
+            - Path=/user/getUser0
+
+        - id: header_route1
+          uri: http://localhost:8090
+          predicates:
+            - Header=X-Request-Id, \d+
+            - Query=name
+            - Weight=group1, 5
+
+        - id: header_route2
+          uri: http://localhost:8091
+          predicates:
+            - Header=X-Request-Id, \d+
+            - Query=name
+            - Weight=group1, 5
